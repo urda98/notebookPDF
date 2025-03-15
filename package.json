@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "dev": "node --watch .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/urda98/notebookPDF/issues"
   },
-  "homepage": "https://github.com/urda98/notebookPDF#readme"
+  "homepage": "https://github.com/urda98/notebookPDF#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "json2csv": "^6.0.0-alpha.2",
+    "path": "^0.12.7",
+    "pdf-parse": "^1.1.1",
+    "readline-sync": "^1.4.10",
+    "tesseract.js": "^6.0.0",
+    "xml2js": "^0.6.2"
+  }
 }
