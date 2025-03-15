@@ -1,133 +1,3 @@
-/* const fs = require('fs');
-const path = require('path');
-const { extractPdfData } = require('./extractPdfData.js');
-const { askForEmisorData } = require('./askForEmisorData.js');
-
-// Ruta de la carpeta que contiene los PDFs
-const folderPath = './comprobantes'; // Cambia a la carpeta donde están tus PDFs
-
-// Arreglo para almacenar todos los datos
-let allData = [];
-
-// Leer los archivos PDF de la carpeta
-fs.readdir(folderPath, async (err, files) => {
-  if (err) {
-    console.error('Error al leer la carpeta:', err);
-    return;
-  }
-
-  for (const file of files) {
-    const filePath = path.join(folderPath, file);
-
-    if (path.extname(file) === '.pdf') {
-      console.log(`Procesando archivo: ${file}`);
-
-      // Extraer datos del PDF
-      let data = await extractPdfData(filePath);
-
-      // Preguntar por datos faltantes (si es necesario)
-      data = await askForEmisorData(data);
-
-      // Agregar los datos al arreglo
-      allData.push(data);
-    }
-  }
-
-    // Una vez que hemos procesado todos los archivos, guardamos los datos en un archivo JSON
-    fs.writeFileSync('comprobantes.json', JSON.stringify(allData, null, 2), 'utf-8');
-    console.log('Datos guardados en comprobantes.json');
-  });
- */
-
-/*   const Tesseract = require('tesseract.js');
-  const fs = require('fs');
-
-
-  async function extractTextWithOCR(imagePath) {
-    const { data } = await Tesseract.recognize(imagePath, 'spa'); // OCR en español
-    const text = data.text;
-  
-    console.log("🔍 Texto extraído con OCR:");
-    console.log(text); // 📌 Verifica el formato del texto extraído
-  
-    // 📌 Expresiones regulares para extraer los datos
-    const fechaMatch = text.match(/Fecha de ejecución\s*([\d\/]+)/);
-    const nombreEmisorMatch = text.match(/Titular cuenta destino\s*([\w\s]+)/);
-    const cuilMatch = text.match(/CUIT\/CUIL\s*([\d-]+)/);
-    const montoMatch = text.match(/Importe debitado\s*\$\s*([\d.,]+)/);
-    const codigoIdentificacionMatch = text.match(/N[º°]?\s*comprobante\s*[:\-]?\s*([\d]+)/i);
-  
-    // 📌 Formatear los datos en un objeto
-    const transferData = {
-      fecha: fechaMatch ? fechaMatch[1] : null,
-      nombreEmisor: nombreEmisorMatch ? nombreEmisorMatch[1].trim() : null,
-      cuil: cuilMatch ? cuilMatch[1] : null,
-      monto: montoMatch ? montoMatch[1].replace(',', '.') : null, // Reemplaza ',' por '.' para valores numéricos
-      codigoIdentificacion: codigoIdentificacionMatch ? codigoIdentificacionMatch[1] : null
-    };
-  
-    console.log("✅ Datos extraídos:", transferData);
-    fs.writeFileSync('comprobantes.json', JSON.stringify(transferData, null, 2), 'utf-8');
-    console.log('✅ Datos guardados en transferencias.json');
-    return transferData;
-  } */
-  
-/*     const fs = require('fs');
-    const Tesseract = require('tesseract.js');
-    const xml2js = require('xml2js');
-    const { parse } = require('json2csv'); // 📌 Convierte JSON a CSV
-    
-    async function extractTransferData(imagePath) {
-      const { data } = await Tesseract.recognize(imagePath, 'spa');
-      const text = data.text;
-    
-      // Expresiones regulares mejoradas
-      const fechaMatch = text.match(/Fecha de ejecución\s*([\d\/]+)/);
-      const nombreEmisorMatch = text.match(/Titular cuenta destino\s*([\w\s]+)/);
-      const montoMatch = text.match(/Importe debitado\s*\$\s*([\d.,]+)/);
-      const cuilMatch = text.match(/(CUIT|CUIL|DNI)[^\d]*(\d{2}-?\d{7,8}-?\d)/);
-      const codigoIdentificacionMatch = text.match(/N[º°]?\s*comprobante\s*[:\-]?\s*([\d]+)/i);
-    
-      const transferData = {
-        fecha: fechaMatch ? fechaMatch[1] : null,
-        nombreEmisor: nombreEmisorMatch ? nombreEmisorMatch[1].trim() : null,
-        monto: montoMatch ? montoMatch[1].replace(',', '.') : null,
-        cuil: cuilMatch ? cuilMatch[2] : null,
-        codigoIdentificacion: codigoIdentificacionMatch ? codigoIdentificacionMatch[1] : null
-      };
-    
-      return transferData;
-    }
-    
-    // ✅ Función para generar XML
-    function generateXML(data) {
-      const builder = new xml2js.Builder();
-      const xml = builder.buildObject({ transferencia: data });
-      fs.writeFileSync('comprobante.xml', xml, 'utf-8');
-      console.log('📂 Datos guardados en comprobante.xml');
-    }
-    
-    // ✅ Función para generar CSV
-    function generateCSV(data) {
-      const csv = parse([data], { fields: Object.keys(data) });
-      fs.writeFileSync('comprobante.csv', csv, 'utf-8');
-      console.log('📂 Datos guardados en comprobante.csv');
-    }
-    
-    // ✅ Función principal
-    async function processImage(imagePath) {
-      try {
-        const transferData = await extractTransferData(imagePath);
-        generateXML(transferData);
-        generateCSV(transferData);
-      } catch (error) {
-        console.error("❌ Error al procesar la imagen:", error);
-      }
-    }
-    
-    // 📌 Ejecutar con la imagen
-    processImage('./comprobantes/jpeg.jpeg'); */
-    
     const fs = require('fs');
     const path = require('path');
     const Tesseract = require('tesseract.js');
@@ -139,14 +9,20 @@ fs.readdir(folderPath, async (err, files) => {
     async function extractTransferData(imagePath) {
       const { data } = await Tesseract.recognize(imagePath, 'spa');
       const text = data.text;
-    
+
+
       const regexPatterns = {
-        fecha: /(?:Fecha de ejecución|Fecha de operación|Fecha|Emitido el|Día de operación|Transacción realizada el)[^\d]*([\d\/-]{8,10})/i,
-        nombreEmisor: /(?:Titular cuenta destino|Titular de la cuenta|Nombre del destinatario|Remitente|Origen de la transacción)[^\w]*([\w\s]+)/i,
-        monto: /(?:Importe debitado|Monto total|Valor de la operación|Importe|Monto transferido|Total a pagar)[^\d]*\$\s*([\d.,]+)/i,
-        cuil: /(?:CUIT|CUIL|DNI|Identificación fiscal)[^\d]*(\d{2}-?\d{7,8}-?\d)/i,
-        codigoIdentificacion: /(?:N[º°]?\s*comprobante|Referencia|Número de operación|ID de transacción|Código de operación|Comprobante N°)[^\d]*([\d]+)/i
+        fecha: /(?:Fecha de ejecución|Fecha de operación|Fecha|Emitido el|Día de operación|Transacción realizada el)[^\d]*(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/i,
+    
+        nombreEmisor: /(?:Titular cuenta destino|Titular de la cuenta|Nombre del destinatario|Remitente|Origen de la transacción|Beneficiario|Pagador)[^\w]*([\w\sÁÉÍÓÚáéíóúÑñ]+)/i,
+    
+        monto: /(?:Importe debitado|Monto total|Valor de la operación|Importe|Monto transferido|Total a pagar|Monto a debitar)[^\d]*\$?\s*([\d,.]+)/i,
+    
+        cuil: /(?:CUIT|CUIL|DNI|Identificación fiscal|N[º°]? Documento)[^\d]*(\d{2}-?\d{7,8}-?\d{1})/i,
+    
+        codigoIdentificacion: /(?:N[º°]?\s*comprobante|Referencia|Número de operación|ID de transacción|Código de operación|Comprobante N°|Nro. de transacción|Código de confirmación)[^\d]*(\d+)/i
       };
+
     
       function findMatch(text, pattern) {
         const match = text.match(pattern);
@@ -213,8 +89,201 @@ fs.readdir(folderPath, async (err, files) => {
     processAllImages();
     
 
+  
+
+/* const fs = require('fs');
+const path = require('path');
+const Tesseract = require('tesseract.js');
+const xml2js = require('xml2js');
+const { parse } = require('json2csv');
+
+const carpetaComprobantes = './comprobantes/'; // 📂 Ruta de la carpeta
+
+async function extractTransferData(imagePath) {
+  const { data } = await Tesseract.recognize(imagePath, 'spa');
+  const text = data.text;
+
+  const regexPatterns = {
+    fecha: /(\w+), (\d{1,2} de \w+ de \d{4})/i,
+    nombreEmisor: /De\n([\w\sáéíóúÁÉÍÓÚñÑ]+)/i,
+    cuil: /CUIT\/CUIL: (\d{2}-\d{8}-\d{1})/i,
+    codigoIdentificacion: /Número de operación de Mercado Pago\s*(\d+)/i,
+  };
+
+  function findMatch(pattern) {
+    const match = text.match(pattern);
+    if (match) return match[1].trim();
+    return null;
+  }
+
+  return {
+    fecha: findMatch(regexPatterns.fecha),
+    nombreEmisor: findMatch(regexPatterns.nombreEmisor),
+    cuil: findMatch(regexPatterns.cuil),
+    codigoIdentificacion: findMatch(regexPatterns.codigoIdentificacion),
+  };
+}
+
+// ✅ Generar XML para cada archivo
+function generateXML(data, fileName) {
+  const builder = new xml2js.Builder();
+  const xml = builder.buildObject({ transferencia: data });
+  fs.writeFileSync(`comprobantes_xml/${fileName}.xml`, xml, 'utf-8');
+  console.log(`📂 XML guardado: comprobantes_xml/${fileName}.xml`);
+}
+
+// ✅ Acumular datos para el CSV
+let allTransferData = [];
+
+// ✅ Procesar todos los archivos en la carpeta
+async function processAllImages() {
+  if (!fs.existsSync('comprobantes_xml')) fs.mkdirSync('comprobantes_xml');
+  if (!fs.existsSync('comprobantes_csv')) fs.mkdirSync('comprobantes_csv');
+
+  fs.readdir(carpetaComprobantes, async (err, files) => {
+    if (err) {
+      console.error("❌ Error al leer la carpeta:", err);
+      return;
+    }
+
+    for (const file of files) {
+      const ext = path.extname(file).toLowerCase();
+      if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+        const filePath = path.join(carpetaComprobantes, file);
+        console.log(`🔍 Procesando: ${filePath}`);
+
+        try {
+          const transferData = await extractTransferData(filePath);
+          const fileName = path.parse(file).name; // Nombre sin extensión
+          generateXML(transferData, fileName);
+          allTransferData.push(transferData); // Acumula los datos para el CSV
+        } catch (error) {
+          console.error(`❌ Error procesando ${file}:`, error);
+        }
+      }
+    }
+
+    // Después de procesar todos los archivos, genera el archivo CSV
+    const csv = parse(allTransferData, { fields: Object.keys(allTransferData[0]) });
+    fs.writeFileSync('comprobantes_csv/todos_comprobantes.csv', csv, 'utf-8');
+    console.log('📂 CSV guardado: comprobantes_csv/todos_comprobantes.csv');
+  });
+}
+
+// 📌 Ejecutar la función
+processAllImages();
+ */
 
 
-  
-  
+
+/* const fs = require('fs');
+const path = require('path');
+const Tesseract = require('tesseract.js');
+const xml2js = require('xml2js');
+const { parse } = require('json2csv');
+
+const carpetaComprobantes = './comprobantes/'; // 📂 Ruta de la carpeta
+
+// Expresiones regulares ampliadas para capturar los diferentes formatos de datos
+    const regexPatterns = {
+        fecha: [
+          /(?:Fecha de ejecución|Fecha de operación|Fecha|Emitido el|Día de operación|Transacción realizada el)[^\d]*(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/i,
+          /(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/i, // Alternativa sin palabras clave
+          /(\d{2,4}[\/\-]\d{1,2}[\/\-]\d{1,2})/i, // Alternativa con formato año
+        ],
+        nombreEmisor: [
+          /(?:Titular cuenta destino|Titular de la cuenta|Nombre del destinatario|Remitente|Origen de la transacción|Beneficiario|Pagador)[^\w]*([\w\sÁÉÍÓÚáéíóúÑñ]+)/i,
+          /(?:Emisor|Pagador)[^\w]*([\w\sÁÉÍÓÚáéíóúÑñ]+)/i, // Para casos con diferentes variaciones
+          /(?:Remitente|Beneficiario)[^\w]*([\w\sÁÉÍÓÚáéíóúÑñ]+)/i, // Otro caso posible
+        ],
+        monto: [
+          /(?:Importe debitado|Monto total|Valor de la operación|Importe|Monto transferido|Total a pagar|Monto a debitar)[^\d]*\$?\s*([\d,.]+)/i,
+          /([\d,.]+)/i, // Caso más genérico
+        ],
+        cuil: [
+          /(?:CUIT|CUIL|DNI|Identificación fiscal|N[º°]? Documento)[^\d]*(\d{2}-?\d{7,8}-?\d{1})/i,
+          /(\d{2}-\d{7,8}-\d{1})/i, // Caso alternativo si no se menciona CUIT o CUIL
+        ],
+        codigoIdentificacion: [
+          /(?:N[º°]?\s*comprobante|Referencia|Número de operación|ID de transacción|Código de operación|Comprobante N°|Nro. de transacción|Código de confirmación)[^\d]*(\d+)/i,
+          /(\d{12,})/i, // Caso genérico para un número largo
+        ],
+};
+
+// Función para encontrar una coincidencia con las expresiones regulares
+function findMatch(text, patterns) {
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) return match[1].trim();
+  }
+  return null;
+}
+
+// Función para extraer los datos de la transferencia
+async function extractTransferData(imagePath) {
+  const { data } = await Tesseract.recognize(imagePath, 'spa');
+  let text = data.text;
+
+  // Eliminar saltos de línea y caracteres extraños
+  text = text.replace(/\n/g, ' ').replace(/\s{2,}/g, ' ');
+
+  return {
+    fecha: findMatch(text, regexPatterns.fecha),
+    nombreEmisor: findMatch(text, regexPatterns.nombreEmisor),
+    monto: findMatch(text, regexPatterns.monto)?.replace(',', '.'), // Normaliza decimales
+    cuil: findMatch(text, regexPatterns.cuil),
+    codigoIdentificacion: findMatch(text, regexPatterns.codigoIdentificacion),
+  };
+}
+
+// Generar XML para cada archivo
+function generateXML(data, fileName) {
+  const builder = new xml2js.Builder();
+  const xml = builder.buildObject({ transferencia: data });
+  fs.writeFileSync(`comprobantes_xml/${fileName}.xml`, xml, 'utf-8');
+  console.log(`📂 XML guardado: comprobantes_xml/${fileName}.xml`);
+}
+
+// Acumular datos para el CSV
+let allTransferData = [];
+
+// Procesar todos los archivos en la carpeta
+async function processAllImages() {
+  if (!fs.existsSync('comprobantes_xml')) fs.mkdirSync('comprobantes_xml');
+  if (!fs.existsSync('comprobantes_csv')) fs.mkdirSync('comprobantes_csv');
+
+  fs.readdir(carpetaComprobantes, async (err, files) => {
+    if (err) {
+      console.error("❌ Error al leer la carpeta:", err);
+      return;
+    }
+
+    for (const file of files) {
+      const ext = path.extname(file).toLowerCase();
+      if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+        const filePath = path.join(carpetaComprobantes, file);
+        console.log(`🔍 Procesando: ${filePath}`);
+
+        try {
+          const transferData = await extractTransferData(filePath);
+          const fileName = path.parse(file).name; // Nombre sin extensión
+          generateXML(transferData, fileName);
+          allTransferData.push(transferData); // Acumula los datos para el CSV
+        } catch (error) {
+          console.error(`❌ Error procesando ${file}:`, error);
+        }
+      }
+    }
+
+    // Después de procesar todos los archivos, genera el archivo CSV
+    const csv = parse(allTransferData, { fields: Object.keys(allTransferData[0]) });
+    fs.writeFileSync('comprobantes_csv/todos_comprobantes.csv', csv, 'utf-8');
+    console.log('📂 CSV guardado: comprobantes_csv/todos_comprobantes.csv');
+  });
+}
+
+// Ejecutar la función
+processAllImages();
+ */
+
 
