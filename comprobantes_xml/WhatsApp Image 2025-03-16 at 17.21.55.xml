@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <transferencia>
   <fecha/>
-  <nombreEmisor>scargar Compartir
-Ir al inicio
-Realizar otra transferencia</nombreEmisor>
+  <nombreEmisor>L ESTERO
+Comprobante de Transferencia
+Importe transferido</nombreEmisor>
   <monto/>
-  <cuil/>
+  <cuil>30-71873507-2</cuil>
   <codigoIdentificacion/>
 </transferencia>

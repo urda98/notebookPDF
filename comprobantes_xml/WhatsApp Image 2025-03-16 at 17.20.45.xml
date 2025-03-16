@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <transferencia>
   <fecha/>
-  <nombreEmisor>transferencia
-Importe debitado</nombreEmisor>
-  <monto>25.830,00</monto>
-  <cuil/>
+  <nombreEmisor>stinatario
+
+GLOBAL TT S</nombreEmisor>
+  <monto/>
+  <cuil>30718735072</cuil>
   <codigoIdentificacion/>
 </transferencia>

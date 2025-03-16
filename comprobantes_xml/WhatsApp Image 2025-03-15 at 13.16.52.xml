@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <transferencia>
-  <fecha/>
+  <fecha>14 de marzo de 2025</fecha>
   <nombreEmisor/>
   <monto/>
   <cuil>20-40904080-3</cuil>
-  <codigoIdentificacion>105179426442</codigoIdentificacion>
+  <codigoIdentificacion/>
 </transferencia>

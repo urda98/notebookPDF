@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <transferencia>
   <fecha/>
-  <nombreEmisor>transferencia
+  <nombreEmisor>r
+Comprobante de Transferencia
+
 Importe debitado</nombreEmisor>
-  <monto>25.830,00</monto>
+  <monto>720.000,00</monto>
   <cuil/>
   <codigoIdentificacion/>
 </transferencia>

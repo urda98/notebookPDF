@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <transferencia>
   <fecha/>
-  <nombreEmisor>transferencia
-Importe debitado</nombreEmisor>
-  <monto>25.830,00</monto>
+  <nombreEmisor>Transferencia inmediata</nombreEmisor>
+  <monto/>
   <cuil/>
   <codigoIdentificacion/>
 </transferencia>
