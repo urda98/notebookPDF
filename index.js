@@ -73,10 +73,10 @@ async function extractTransferData(imagePath, folderPath) {
   }if(folderPath === './BBVA/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})/i,  // Captura la fecha, en formato dd/mm/aaaa
-      nombreEmisor: /Origen\s+([A-Za-zÁÉÍÓÚÑ\s]+)(?=\s*\d{2,3}(\.\d{3}){2})/i,   // Captura el nombre del emisor
-      monto: /Importe\s*\$?\s*([\d.,]+)/i,  // Captura el monto con el signo de peso
-      cuil: /CUIL:\s*([\d]{2}\.[\d]{3}\.[\d]{3})/i,  // Captura el CUIL con formato
-      codigoIdentificacion: /Código de referencia\s+([A-Za-z0-9]+)/i,  // Captura el código de referencia
+      nombreEmisor: /Titular\s+([\s\S]+?)(?=\s*Destinatario)/i,   // Captura el nombre del emisor
+      monto: /\$\s*([\d.,]+)/,  // Captura el monto con el signo de peso
+      cuil: /CUIT destinatario\s*(\d{11})/i,  // Captura el CUIL con formato
+      codigoIdentificacion: /Número de referencia\s+(\d+)/i,  // Captura el código de referencia
       banco: "BBVA" 
     }
   }
@@ -86,7 +86,7 @@ async function extractTransferData(imagePath, folderPath) {
     const match = text.match(pattern);
     console.log(`🔍 Buscando con regex: ${pattern}`);
     console.log(`📌 Resultado encontrado:`, match);
-    return match && match[1] ? match[1].trim() : null;
+    return match && match[1] ? match[1].trim() : "SIN DATOS";
   }
 
   return {
