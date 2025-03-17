@@ -1,4 +1,3 @@
-"fecha","nombreEmisor","monto","cuil","codigoIdentificacion"
-"14 de marzo de 2025",,,"20-40904080-3",
-"12 de marzo de 2025",,,"27-41583640-1","8DOQE19LOMMKK74V97JZ5R"
-"12 de marzo de 2025",,,"27-41583640-1","8DOQE19LOMMKK74V97JZ5R"
+"fecha","nombreEmisor","monto","cuil","codigoIdentificacion","banco"
+"17/03/2025","Lautaro Danel Ferretty","500.000,00",,"PDX40GNY1WEPGM3R20L6EY","CuentaDni"
+"14/03/2025",,,,,"BBVA"
