@@ -4,15 +4,16 @@ import { parse } from 'json2csv';
 import  generateXML  from './generateXML.js';
 import  extractTransferData from './extractTransferData.js';
 
-
-const carpetaComprobantesMP = './Mp/';
-const carpetaComprobantesBNA = './BNA/';
-const carpetaComprobantesSantander = './Santander/';
-const carpetaComprobantesCuentaDni = './CuentaDni/';
-const carpetaComprobantesBBVA = './BBVA/';
-
-let carpetasComprobantes = [carpetaComprobantesMP, carpetaComprobantesBNA , carpetaComprobantesSantander, carpetaComprobantesCuentaDni, carpetaComprobantesBBVA]
-
+let carpetasComprobantes = {
+  MP : './comprobantes/Mp/',
+  BNA : './comprobantes/BNA/',
+  Santander : './comprobantes/Santander/',
+  CuentaDni : './comprobantes/CuentaDni/',
+  BBVA : './comprobantes/BBVA/',
+  BRUBANK : './comprobantes/BRUBANK/',
+  GALICIA : './comprobantes/Galicia/',
+  
+}
 
 let allTransferData = [];
 
@@ -42,7 +43,7 @@ async function processAllImages() {
   if (!fs.existsSync('comprobantes_xml')) fs.mkdirSync('comprobantes_xml');
   if (!fs.existsSync('comprobantes_csv')) fs.mkdirSync('comprobantes_csv');
 
-  await Promise.all(carpetasComprobantes.map(folder => processFolder(folder)));
+  await Promise.all(Object.values(carpetasComprobantes).map(folder => processFolder(folder)));
 
   if (allTransferData.length > 0) {
     const csv = parse(allTransferData, { fields: Object.keys(allTransferData[0]) });
