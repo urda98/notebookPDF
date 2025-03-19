@@ -8,7 +8,10 @@ body{
 .form{
     margin: 100px 500px;
     width: 500px;
-    border: 5px solid #eeee;
+    border: 3px solid #eeee;
+    border-radius: 3px;
+    position: absolute;
+    padding: 15px;
 }
 
 .form__box{
@@ -19,4 +22,18 @@ body{
 .form__icon{
     width: 40px;
     height: 40px;
+}
+
+.form__button{
+    margin: auto;
+    position: relative;
+    left: 200px;
+    background: rgb(114, 114, 229);
+    color: #eeee;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+img{
+    border-radius: 2px;
 }
