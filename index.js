@@ -5,6 +5,8 @@ import path from 'path';
 import { parse } from 'json2csv';
 import  generateXML  from './generateXML.js';
 import  extractTransferData from './extractTransferData.js';
+
+
 /* 
 const app = express();
 const port = 3000;
@@ -84,9 +86,9 @@ app.listen(port, () => {
 let carpetasComprobantes = {
   MP : './comprobantes/Mp/',
   BNA : './comprobantes/BNA/',  
-  Santander : './comprobantes/Santander/', 
+  Santander : './comprobantes/Santander/',  
   CuentaDni : './comprobantes/CuentaDni/',
-  BBVA : './comprobantes/BBVA/',
+   BBVA : './comprobantes/BBVA/',
   BRUBANK : './comprobantes/BRUBANK/',
   GALICIA : './comprobantes/Galicia/', 
   Astropay : './comprobantes/AstroPay/',
@@ -96,14 +98,18 @@ let carpetasComprobantes = {
   NaranjaX : './comprobantes/NaranjaX/',
   ICBC : './comprobantes/ICBC/',  
   Hipotecario : './comprobantes/Hipotecario/', 
-   PersonalPay : './comprobantes/PersonalPay/',
+  PersonalPay : './comprobantes/PersonalPay/',
   Provincia: './comprobantes/Provincia/',
   Supervielle: './comprobantes/Supervielle/',
-   Uala : './comprobantes/Uala/',  
+  Uala2 : './comprobantes/Uala2/', 
+  Uala : './comprobantes/Uala/',
+  Marco :  './comprobantes/Macro/',
+   
   
 }
 
 let allTransferData = [];
+
 
 async function processFolder(folderPath) {
   if (!fs.existsSync(folderPath)) return;
@@ -111,13 +117,20 @@ async function processFolder(folderPath) {
 
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
-    if (['.png', '.jpg', '.jpeg'].includes(ext)) {
-      const filePath = path.join(folderPath, file);
-      console.log(`🔍 Procesando: ${filePath}`);
+    let filePath = path.join(folderPath, file);
 
+/*     if (ext === '.pdf') {
+      console.log(`📄 Detectado PDF: ${filePath}, convirtiendo a PNG...`);
+      const convertedPath = await convertPdfToPng(filePath, folderPath);
+      if (!convertedPath) continue;
+      filePath = convertedPath;
+    } */
+
+    if (['.png', '.jpg', '.jpeg'].includes(path.extname(filePath).toLowerCase())) {
+      console.log(`🔍 Procesando: ${filePath}`);
       try {
         const transferData = await extractTransferData(filePath, folderPath);
-        const fileName = path.parse(file).name;
+        const fileName = path.parse(filePath).name;
         generateXML(transferData, fileName);
         allTransferData.push(transferData);
       } catch (error) {
@@ -141,3 +154,4 @@ async function processAllImages() {
 }
 
 processAllImages();
+
