@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferencia>
+  <hoy>26/03/2025</hoy>
+  <fecha>26/03/2025</fecha>
+  <monto>15.000,00</monto>
+  <banco>GaliciaMas</banco>
+  <tt>TT</tt>
+  <nombreEmisor>Rosana Isabel Bossi</nombreEmisor>
+  <cuil>SIN DATOS</cuil>
+  <codigoIdentificacion>5750</codigoIdentificacion>
+  <cuentaDestino>SIN DATOS</cuentaDestino>
+</transferencia>

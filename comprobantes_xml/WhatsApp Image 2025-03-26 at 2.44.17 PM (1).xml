@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferencia>
+  <hoy>26/03/2025</hoy>
+  <fecha>26/03/2025</fecha>
+  <monto>330.000,00</monto>
+  <banco>BNA</banco>
+  <tt>TT</tt>
+  <nombreEmisor>SIN DATOS</nombreEmisor>
+  <cuil>SIN DATOS</cuil>
+  <codigoIdentificacion>WGRXJE27G13L4ZJON7MYQL</codigoIdentificacion>
+  <cuentaDestino>AGROQ</cuentaDestino>
+</transferencia>

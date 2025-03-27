@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferencia>
+  <hoy>26/03/2025</hoy>
+  <fecha>25/03/2025</fecha>
+  <monto>880.000</monto>
+  <banco>GALICIA</banco>
+  <tt>TT</tt>
+  <nombreEmisor>RAUL JUAN REULA</nombreEmisor>
+  <cuil>20-14094193-0</cuil>
+  <codigoIdentificacion>SIN DATOS</codigoIdentificacion>
+  <cuentaDestino>Agroquim Norte S.A</cuentaDestino>
+</transferencia>

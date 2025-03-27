@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferencia>
+  <hoy>26/03/2025</hoy>
+  <fecha>25/03/2025</fecha>
+  <monto>1.500.000,00</monto>
+  <banco>BBVA</banco>
+  <tt>TT</tt>
+  <nombreEmisor>MURO PUJATO JONATAN
+EDUARDO</nombreEmisor>
+  <cuil>30718206185</cuil>
+  <codigoIdentificacion>50212074007250325</codigoIdentificacion>
+  <cuentaDestino>AGROQUIM NORTE S.A</cuentaDestino>
+</transferencia>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferencia>
+  <hoy>26/03/2025</hoy>
+  <fecha>26/03/2025</fecha>
+  <monto>500.000,00</monto>
+  <banco>CUENTADNI</banco>
+  <tt>TT</tt>
+  <nombreEmisor>Guillermo Adrian Leguiza</nombreEmisor>
+  <cuil>SIN DATOS</cuil>
+  <codigoIdentificacion>Z4KEDVNODREL3EVG95</codigoIdentificacion>
+  <cuentaDestino>AGROQUIM NORTE S.A
+Alias</cuentaDestino>
+</transferencia>

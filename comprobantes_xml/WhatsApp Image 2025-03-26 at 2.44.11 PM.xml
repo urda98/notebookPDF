@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferencia>
+  <hoy>26/03/2025</hoy>
+  <fecha>25/03/2025</fecha>
+  <monto>30.000,00</monto>
+  <banco>CUENTADNI</banco>
+  <tt>TT</tt>
+  <nombreEmisor>Guillermo Adrian Leguiza</nombreEmisor>
+  <cuil>SIN DATOS</cuil>
+  <codigoIdentificacion>76V4MR2ZPWG1PYLO9DEZOL</codigoIdentificacion>
+  <cuentaDestino>GLOBAL TT S.A.
+Alias</cuentaDestino>
+</transferencia>
