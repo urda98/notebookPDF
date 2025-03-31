@@ -1,0 +1,17 @@
+const bancos = {
+    "Ualá": /(?i)\bualá\b/,
+    "Macro": /(?i)CA - PESOS -/,  // Sin la palabra "Banco"
+    "BNA": /(?i)ÉS Transferencia/,
+    "Banco Provincia": /(?i)Banco Provincia.*Operación realizada con éxito/,
+    "Naranja X": /(?i)Naranja X|Naranja Digital Compañia Financiera S.A.U/,
+    "Brubank": /(?i)\bBrubank\b/,
+    "Supervielle": /(?i)\bSUPERVIELLE\b/,
+    "Mercado Pago": /(?i)mercado\s+pago.*Comprobante de transferencia/,
+    "BBVA": /(?i)\bBBVA\b.*Transferiste a/,
+    "CuentaDNI": /(?i)Cuenta\s*-?\s*DNI.*Comprobante de transferencia/,
+    "Santander": /(?i)\bSantander\b.*Comprobante de Transferencia/,
+    "ICBC": /(?i)Comprobante de transferencia.*Transferiste/,
+    "Galicia Más": /(?i)Galicia Más.*Transferencia realizada con éxito/,
+    "Galicia": /(?i)Galicia.*Transferencia enviada/,
+    "Personal Pay": /(?i)personal\s*pay.*Enviaste dinero/
+};
