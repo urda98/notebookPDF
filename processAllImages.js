@@ -266,7 +266,7 @@ async function convertPdfToPng(pdfPath, outputDir) {
   }
 }
 
-async function processFolder(folderPath) {
+export async function processFolder(folderPath) {
   if (!fs.existsSync(folderPath)) return;
   const files = fs.readdirSync(folderPath);
 
@@ -328,4 +328,6 @@ async function processAllImages() {
 }
 
 // Procesar todas las imágenes de la carpeta 'todos'
-processAllImages();
+// processAllImages();
+
+export default processAllImages; 
