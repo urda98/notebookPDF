@@ -158,7 +158,8 @@ let carpetasComprobantes = {
   Uala2: './comprobantes/Uala2/',
   Uala: './comprobantes/Uala/',
   Macro: './comprobantes/Macro/',
-  Lemon: './comprobantes/Lemon/'
+  Lemon: './comprobantes/Lemon/',
+  Otros: './comprobantes/Lemon/'
 };
 
 async function classifyBankStatement(filePath) {
@@ -176,21 +177,23 @@ async function classifyBankStatement(filePath) {
 
   // Definir las expresiones regulares para identificar los bancos
   const bankKeywords = {
-    Uala2: /\bualá\b/i,
+    Uala2: /u\s*a\s*l\s*[aá]/i,
     Macro: /CA - PESOS -/i,
-    BNA: /ÉS Transferencia/i,
+    BNA: /^<\s*E\s+Transferencia\s*$/im,
     Provincia: /Banco Provincia.*Operación realizada con éxito/i,
     NaranjaX: /Naranja X|Naranja Digital Compañia Financiera S.A.U/i,
     BRUBANK: /\bBrubank\b/i,
     Supervielle: /\bSUPERVIELLE\b/i,
     MP: /mercado\s*pago/i,
-    BBVA: /\bBBVA\b.*Transferiste a/i,
-    CuentaDni: /Cuenta\s*-?\s*DNI.*Comprobante de transferencia/i,
+    BBVA:  /\bBBVA?\b/i,
+    CuentaDni: /\bDNI\b/i,
     Santander: /\bSantander\b.*Comprobante de Transferencia/i,
-    ICBC: /Comprobante de transferencia.*Transferiste/i,
+    ICBC: /Sujeto a impuestos y comisiones determinadas por tu banco\.\s+La transferencia se cursó al destino de forma inmediata\./i,
     GaliciaMas: /Galicia Más.*Transferencia realizada con éxito/i,
-    GALICIA: /Galicia.*Transferencia enviada/i,
-    PersonalPay: /personal\s*pay.*Enviaste dinero/i
+    GALICIA: /\bGalicia\b/i,
+    BancoDelSol:/BANCO\s*[\w\s]*DEL\s*SOL[\s\S]*?SANCOR\s+SEGUROS/i,
+    BancoCiudad: /Canal\s+Referencia\s+Banca\s+M[oó]vil/i,
+    PersonalPay: /\bPersonal Pay\b/i
   };
 
   // Intentar identificar el banco con las expresiones regulares
@@ -328,6 +331,6 @@ async function processAllImages() {
 }
 
 // Procesar todas las imágenes de la carpeta 'todos'
-// processAllImages();
+ processAllImages();
 
-export default processAllImages; 
+/* export default processAllImages;  */
