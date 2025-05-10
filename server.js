@@ -39,6 +39,21 @@ const storage = multer.diskStorage({
 // Configuración de Multer
 const upload = multer({ storage });
 
+function limpiarCarpeta(carpeta) {
+  if (fs.existsSync(carpeta)) {
+    const archivos = fs.readdirSync(carpeta);
+    for (const archivo of archivos) {
+      const rutaCompleta = path.join(carpeta, archivo);
+      const stat = fs.statSync(rutaCompleta);
+      if (stat.isDirectory()) {
+        limpiarCarpeta(rutaCompleta); // Recursividad para subcarpetas
+      } else {
+        fs.unlinkSync(rutaCompleta); // Eliminar archivo
+      }
+    }
+  }
+}
+
 // Middleware para manejar el formulario y los archivos
 app.post('/upload', upload.array('files', 200), async (req, res) => {
   try {
@@ -46,11 +61,26 @@ app.post('/upload', upload.array('files', 200), async (req, res) => {
     const files = req.files.map(file => file.path);
     console.log('Archivos cargados:', files);
 
-    processAllImages(files);
+    await processAllImages(files);
     
-    const csvFilePath = './comprobantes_csv/todos_comprobantes.csv';
+    let comprobanteName = `todos_comprobantes_${(new Date()).toISOString().split('T')[0].split('-').reverse().join('-')}.csv`;
+
+    const csvFilePath = `./comprobantes_csv/${comprobanteName}`;
+
+    limpiarCarpeta('./todos');
+    const carpetaComprobantes = './comprobantes';
+    if (fs.existsSync(carpetaComprobantes)) {
+      const subcarpetas = fs.readdirSync(carpetaComprobantes);
+      for (const sub of subcarpetas) {
+        const rutaSubcarpeta = path.join(carpetaComprobantes, sub);
+        if (fs.statSync(rutaSubcarpeta).isDirectory()) {
+          limpiarCarpeta(rutaSubcarpeta);
+        }
+      }
+    }
+
     // Enviar el archivo CSV como respuesta para su descarga
-    res.download(csvFilePath, 'todos_comprobantes.csv', (err) => {
+    res.download(csvFilePath, `${comprobanteName}`, (err) => {
       if (err) {
         console.error('Error al enviar el archivo:', err);
         res.status(500).send('Error al enviar el archivo');

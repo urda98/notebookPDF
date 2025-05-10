@@ -239,6 +239,36 @@ export async function extractTransferData(imagePath, folderPath) {
         cuentaDestino: /Nombre\s+(.+)\s+CUIT/,
         banco: "Lemon"        
     }
+  }else if (folderPath === './comprobantes/Prex/') {
+    regexPatterns = {
+      fecha: /(\d{1,2} de [A-Za-zÁÉÍÓÚñáéíóú]+ de \d{4})(?=\s*-)/, 
+      nombreEmisor: /Titular:\s*(.+?)\s*CVU\/CBU:/,  
+      monto:  /Enviaste:\s*\$?\s*([\d.]+,\d{2})/, 
+      cuil: "SIN DATOS",
+      codigoIdentificacion: /Código[:\s]*([A-Z0-9]+)/,  
+      cuentaDestino: /Enviaste a:\s*(.+)/,
+      banco: "Prex" 
+    }
+  } else if (folderPath === './comprobantes/Patagonia/') {
+    regexPatterns = {
+      fecha: /Fecha y Hora\s+(\d{2}\/\d{2}\/\d{4})/i, 
+      nombreEmisor: /Origen\s+([A-ZÁÉÍÓÚÑ ,.'-]+)/i,  
+      monto:  /Importe\s*\$ ?([\d.]+,\d{2})/i, 
+      cuil: "SIN DATOS",
+      codigoIdentificacion: /N9 de control\s+([A-Z0-9]+)/i,  
+      cuentaDestino: /Destino\s+([A-ZÁÉÍÓÚÑ0-9 ,.'-]+)/i,
+      banco: "PATAGONIA" 
+    }
+  } else if (folderPath === './comprobantes/NBCH/') {
+    regexPatterns = {
+      fecha: /Fecha:\s*(\d{1,2}\/\d{1,2}\/\d{2,4})/i, 
+      nombreEmisor: /Nombre originante:\s*(.+)/i,  
+      monto:  /\$\s*([\d.]+,\d{2})/, 
+      cuil: /CUIT\/CUIL\/CDI\/DNI originante:\s*(\d{11})/i,
+      codigoIdentificacion: /Código de identificación:\s*([A-Z0-9]+)/i,  
+      cuentaDestino: /Destinatario\s+([A-Z\s.]+)/i,
+      banco: "NBCH" 
+    }
   }
 
 
@@ -264,7 +294,6 @@ export async function extractTransferData(imagePath, folderPath) {
     cuil: findMatch(text, regexPatterns.cuil),
     codigoIdentificacion: findMatch(text, regexPatterns.codigoIdentificacion),
     cuentaDestino: findMatch(text, regexPatterns.cuentaDestino),
-
   };
 }
 

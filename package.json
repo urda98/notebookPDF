@@ -2,7 +2,7 @@
   "name": "pdf-2.0",
   "version": "1.0.0",
   "description": "",
-  "main": "processAllImages.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node .",
