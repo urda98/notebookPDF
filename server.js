@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Carpeta para guardar los comprobantes
-const folderComprobantes = './todos/';
+const folderComprobantes = './temp/todos/';
 
 // Asegurarse de que la carpeta exista
 if (!fs.existsSync(folderComprobantes)) {
@@ -62,14 +62,14 @@ app.post('/upload', upload.array('files', 200), async (req, res) => {
     const files = req.files.map(file => file.path);
     console.log('Archivos cargados:', files);
 
-    await processAllImages(files);
+    await processAllImages();
     
     let comprobanteName = `todos_comprobantes_${(new Date()).toISOString().split('T')[0].split('-').reverse().join('-')}.csv`;
 
-    const csvFilePath = `./comprobantes_csv/${comprobanteName}`;
+    const csvFilePath = `./temp/comprobantes_csv/${comprobanteName}`;
 
-    limpiarCarpeta('./todos');
-    const carpetaComprobantes = './comprobantes';
+    limpiarCarpeta('./temp/todos');
+    const carpetaComprobantes = './temp/comprobantes';
     if (fs.existsSync(carpetaComprobantes)) {
       const subcarpetas = fs.readdirSync(carpetaComprobantes);
       for (const sub of subcarpetas) {

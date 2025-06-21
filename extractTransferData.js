@@ -24,7 +24,7 @@ export async function extractTransferData(imagePath, folderPath) {
 
   var regexPatterns;
 
-  if(folderPath === './comprobantes/Mp/'){
+  if(folderPath === './temp/comprobantes/Mp/'){
      regexPatterns = {
       fecha: /(?:Fecha de ejecución|Fecha de la transferencia|Día de operación|Miércoles,|Martes,|Jueves,|Viernes,|Sábado,|Domingo,|Lunes,)\s*([\d]{1,2}\sde\s\w+\sde\s\d{4})/i,
       nombreEmisor: /\* De\s*([\w\sÁÉÍÓÚáéíóúÑñ]+)(?=\s*CUIT)/i,
@@ -34,7 +34,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino : /Para\s+([A-Za-záéíóúÁÉÍÓÚñÑ\s\.]+)/,
       banco: "MP"
     };
-  } else if(folderPath === './comprobantes/BNA/'){
+  } else if(folderPath === './temp/comprobantes/BNA/'){
     regexPatterns = {
       fecha: /\b(\d{1,2}\/\d{1,2}\/\d{2,4})\b/,
       nombreEmisor: "SIN DATOS",
@@ -44,7 +44,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Destinatario\s*([^\nCUIT]+)/i,
       banco: "BNA"
     } 
-  } else if(folderPath === './comprobantes/Santander/'){
+  } else if(folderPath === './temp/comprobantes/Santander/'){
     regexPatterns = {
       fecha:  /Fecha de ejecución\s*([\d]{2}\/[\d]{2}\/[\d]{4})/i , /*/Fecha\s+(\d{2}\/\d{2}\/\d{4})\s+Número de Comprobante/*/
       nombreEmisor: "SIN DATOS",  
@@ -54,7 +54,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Titular cuenta destino\s+([^\n]+)\s+Cuenta débito/,
       banco: "SANTANDER"
     }
-  } else if(folderPath === './comprobantes/CuentaDni/'){
+  } else if(folderPath === './temp/comprobantes/CuentaDni/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})/i,  
       nombreEmisor: /Origen\s+([A-Za-zÁÉÍÓÚÑ\s]+)(?=\s*\d{2,3}(\.\d{3}){2})/i,   
@@ -64,7 +64,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Para\s+([A-Za-z0-9\s\.]+)/i,
       banco: "CUENTADNI" 
     }
-  } else if(folderPath === './comprobantes/BBVA/'){
+  } else if(folderPath === './temp/comprobantes/BBVA/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})/i,
       nombreEmisor: /Titular\s+([\s\S]+?)(?=\s*Destinatario)/i,  
@@ -74,7 +74,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Destinatario\s+([A-Za-z0-9\s\.]+?)(?=\s*CBU)/i,  
       banco: "BBVA" 
     }
-  } else if(folderPath === './comprobantes/Galicia/'){
+  } else if(folderPath === './temp/comprobantes/Galicia/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})\s*-\s*\d{2}:\d{2}h/i,
       nombreEmisor: /De:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s]+)(?=\s*CUIT)/i,
@@ -84,7 +84,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Para:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+)(?=\s*CUIT)/i,
       banco: "GALICIA" 
     }
-  } else if(folderPath === './comprobantes/Galicia2/'){
+  } else if(folderPath === './temp/comprobantes/Galicia2/'){
     regexPatterns = {
       fecha: /Número de operación\s+(\d{2}\/\d{2}\/\d{4})/,
       nombreEmisor: /(.+?)\s+\$\s[\d.]+,\d{2}/,
@@ -94,7 +94,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Razon Social Cu\s+(.+?)\s+\d+/,
       banco: "GALICIA" 
     }
-  }else if(folderPath === './comprobantes/BRUBANK/'){
+  }else if(folderPath === './temp/comprobantes/BRUBANK/'){
     regexPatterns = {
       fecha: null, 
       nombreEmisor: /Titular\s+([A-Za-zÁÉÍÓÚáéíóúÑñ\s]+)(?=\s*CUIT)/i,
@@ -104,7 +104,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Envío de dinero\s+([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+)/i,
       banco: "BRUBANK" 
     }
-  } else if(folderPath === './comprobantes/AstroPay/'){
+  } else if(folderPath === './temp/comprobantes/AstroPay/'){
     regexPatterns = {
       nombreEmisor: /^([A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚáéíóúÑñ\s]+)/i,  
       monto: " ",  
@@ -112,7 +112,7 @@ export async function extractTransferData(imagePath, folderPath) {
       codigoIdentificacion: "COMPLETAR A MANO",
       banco: "AstroPay" 
     }
-  }  else if(folderPath === './comprobantes/BancoCiudad/'){
+  }  else if(folderPath === './temp/comprobantes/BancoCiudad/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})\s*-\s*\d{2}:\d{2}:\d{2}/,  
       nombreEmisor: /Originante\s+Cuenta\s+Origen\s+([A-ZÑÁÉÍÓÚÜ]+)\s+CA\b/i,  
@@ -122,7 +122,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino:/ALIAS\s*[:\-]?\s*([\w.-]+)/i,  
       banco: "BancoCiudad" 
     }
-  } else if(folderPath === './comprobantes/BancoDelSol/'){
+  } else if(folderPath === './temp/comprobantes/BancoDelSol/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{2})\s*-\s*(\d{2}:\d{2})/, 
       monto: /ARS\s?\$\s?([\d.,]+)/, 
@@ -131,7 +131,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /DESTINATARIO:\s+(.+?)\s+CVU DESTINO:/, 
       banco: "BancoDelSol" 
     }
-  } else if(folderPath === './comprobantes/GaliciaMas/'){
+  } else if(folderPath === './temp/comprobantes/GaliciaMas/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})\s(\d{2}:\d{2}:\d{2})/,  
       monto: /ARS\s([\d.,]+)/,  
@@ -141,7 +141,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Nombre\s([A-Za-z\sÁÉÍÓÚáéíóúÑñ]+)(?=\s*Banco)/i,
       banco: "GaliciaMas" 
     }
-  } else if(folderPath === './comprobantes/NaranjaX/'){
+  } else if(folderPath === './temp/comprobantes/NaranjaX/'){
     regexPatterns = {
       fecha: /(\d{2}\/[A-Za-z]{3}\/\d{4})/,
       nombreEmisor: /Cuenta origen\s+NX\s+([A-Za-z\sÁÉÍÓÚÑñ]+)/,
@@ -151,7 +151,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Cuenta destino\s+e\s+([\p{L}\s.]+?)\s+o BancoVirtual/u,
       banco: "NaranjaX" 
     } 
-  } else if(folderPath === './comprobantes/ICBC/'){
+  } else if(folderPath === './temp/comprobantes/ICBC/'){
     regexPatterns = {
       fecha: /(\d{2} de [A-Za-z]+, \d{4})/,
       nombreEmisor: /De\s([A-Za-z]+\s[A-Za-z]+(?:\s[A-Za-z]+)*)/,
@@ -161,7 +161,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /a\s+([\p{L}\s.]+?)\s+CUIT\/CUIL:/u,
       banco: "ICBC" 
     }
-  } else if(folderPath === './comprobantes/Hipotecario/'){
+  } else if(folderPath === './temp/comprobantes/Hipotecario/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})/,  
       nombreEmisor: /Nombre:\s([A-Za-z\sÁÉÍÓÚÑñ]+)/,  
@@ -171,7 +171,7 @@ export async function extractTransferData(imagePath, folderPath) {
       codigoIdentificacion: /Operación:\s([A-Za-z0-9]+)/,
       banco: "Hipotecario" 
     }
-  } else  if(folderPath === './comprobantes/PersonalPay/'){
+  } else  if(folderPath === './temp/comprobantes/PersonalPay/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})/, 
       nombreEmisor: /Envía\s([A-Za-z\sÁÉÍÓÚÑñ,]+)/,  
@@ -181,7 +181,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Recibe\s([A-Za-z\sÁÉÍÓÚÑñ]+)/,
       banco: "PersonalPay" 
     }
-  } else if(folderPath === './comprobantes/Provincia/'){
+  } else if(folderPath === './temp/comprobantes/Provincia/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})/,
       nombreEmisor: /Titular:\s([A-Za-z\s,]+)\/\s\d{8}/,
@@ -191,7 +191,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Titular cuenta destino:\s(.+?)\s\//,
       banco: "Provincia" 
     }
-  } else if(folderPath === './comprobantes/Supervielle/'){
+  } else if(folderPath === './temp/comprobantes/Supervielle/'){
     regexPatterns = {
       fecha: /(\d{2} [A-Za-z]+ \d{4})/,
       nombreEmisor: "SIN DATOS",
@@ -200,7 +200,7 @@ export async function extractTransferData(imagePath, folderPath) {
       codigoIdentificacion: /Número de Control\s([A-Za-z0-9]+)/,
       banco: "Supervielle" 
     } 
-  } else if(folderPath === './comprobantes/Uala/'){
+  } else if(folderPath === './temp/comprobantes/Uala/'){
     regexPatterns = {
       fecha: /(\d{2}\/\d{2}\/\d{4})\s+\d{2}:\d{2}\s+hs/,  
       nombreEmisor: /Nombre remitente\s([A-Za-z\s]+(?:\s[A-Za-z]+)+)/,  
@@ -209,7 +209,7 @@ export async function extractTransferData(imagePath, folderPath) {
       codigoIdentificacion: /Id Op.\s([A-Za-z0-9]+)/,
       banco: "Uala" 
     } 
-  } else if (folderPath === './comprobantes/Uala2/') {
+  } else if (folderPath === './temp/comprobantes/Uala2/') {
     regexPatterns = {
         fecha:/Fecha y hora\s([\d\w\s]+?)(?=\s*-\d{2}:\d{2}hs)/, 
         nombreEmisor: /Nombre remitente\s([A-Za-z\sÁÉÍÓÚáéíóúÑñ]+)(?=\s*Concepto)/i, 
@@ -219,7 +219,7 @@ export async function extractTransferData(imagePath, folderPath) {
         cuentaDestino: /Cuenta destino\s([A-Za-z\sÁÉÍÓÚáéíóúÑñ]+)/,
         banco: "Uala"
     }
-  } else if (folderPath === './comprobantes/Macro/') {
+  } else if (folderPath === './temp/comprobantes/Macro/') {
     regexPatterns = {
         fecha: /(\d{2}\/\d{2}\/\d{4})/, 
         nombreEmisor: "SIN DATOS",  
@@ -229,7 +229,7 @@ export async function extractTransferData(imagePath, folderPath) {
         cuentaDestino: /Nombre Beneficiario:\s(.+)/,
         banco: "Macro"        
     } 
-  } else if (folderPath === './comprobantes/Lemon/') {
+  } else if (folderPath === './temp/comprobantes/Lemon/') {
     regexPatterns = {
         fecha: /(\d{1,2} \w+ \d{4} \d{2}:\d{2})\s+hs/, 
         nombreEmisor: /Enviado por\s+(.+)\s+Persona destinataria/,  
@@ -239,7 +239,7 @@ export async function extractTransferData(imagePath, folderPath) {
         cuentaDestino: /Nombre\s+(.+)\s+CUIT/,
         banco: "Lemon"        
     }
-  }else if (folderPath === './comprobantes/Prex/') {
+  }else if (folderPath === './temp/comprobantes/Prex/') {
     regexPatterns = {
       fecha: /(\d{1,2} de [A-Za-zÁÉÍÓÚñáéíóú]+ de \d{4})(?=\s*-)/, 
       nombreEmisor: /Titular:\s*(.+?)\s*CVU\/CBU:/,  
@@ -249,7 +249,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Enviaste a:\s*(.+)/,
       banco: "Prex" 
     }
-  } else if (folderPath === './comprobantes/Patagonia/') {
+  } else if (folderPath === './temp/comprobantes/Patagonia/') {
     regexPatterns = {
       fecha: /Fecha y Hora\s+(\d{2}\/\d{2}\/\d{4})/i, 
       nombreEmisor: /Origen\s+([A-ZÁÉÍÓÚÑ ,.'-]+)/i,  
@@ -259,7 +259,7 @@ export async function extractTransferData(imagePath, folderPath) {
       cuentaDestino: /Destino\s+([A-ZÁÉÍÓÚÑ0-9 ,.'-]+)/i,
       banco: "PATAGONIA" 
     }
-  } else if (folderPath === './comprobantes/NBCH/') {
+  } else if (folderPath === './temp/comprobantes/NBCH/') {
     regexPatterns = {
       fecha: /Fecha:\s*(\d{1,2}\/\d{1,2}\/\d{2,4})/i, 
       nombreEmisor: /Nombre originante:\s*(.+)/i,  

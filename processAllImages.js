@@ -3,35 +3,36 @@ import path from 'path';
 import { parse } from 'json2csv';
 import generateXML from './generateXML.js';
 import extractTransferData from './extractTransferData.js';
-import pdfPoppler from 'pdf-poppler';
+import { fromPath } from 'pdf2pic';
 import Tesseract from 'tesseract.js';
 
+
 let carpetasComprobantes = {
-  MP: './comprobantes/Mp/',
-  BNA: './comprobantes/BNA/',
-  Santander: './comprobantes/Santander/',
-  CuentaDni: './comprobantes/CuentaDni/',
-  BBVA: './comprobantes/BBVA/',
-  BRUBANK: './comprobantes/BRUBANK/',
-  GALICIA: './comprobantes/Galicia/',
-  GALICIA2: './comprobantes/Galicia2/',
-  Astropay: './comprobantes/AstroPay/',
-  BancoCiudad: './comprobantes/BancoCiudad/',
-  BancoDelSol: './comprobantes/BancoDelSol/',
-  GaliciaMas: './comprobantes/GaliciaMas/',
-  NaranjaX: './comprobantes/NaranjaX/',
-  ICBC: './comprobantes/ICBC/',
-  Hipotecario: './comprobantes/Hipotecario/',
-  PersonalPay: './comprobantes/PersonalPay/',
-  Provincia: './comprobantes/Provincia/',
-  Supervielle: './comprobantes/Supervielle/',
-  Uala2: './comprobantes/Uala2/',
-  Uala: './comprobantes/Uala/',
-  Macro: './comprobantes/Macro/',
-  Lemon: './comprobantes/Lemon/',
-  Prex: './comprobantes/Prex/',
-  Patagonia: './comprobantes/Patagonia/',
-  NBCH: './comprobantes/NBCH/'
+  MP: './temp/comprobantes/Mp/',
+  BNA: './temp/comprobantes/BNA/',
+  Santander: './temp/comprobantes/Santander/',
+  CuentaDni: './temp/comprobantes/CuentaDni/',
+  BBVA: './temp/comprobantes/BBVA/',
+  BRUBANK: './temp/comprobantes/BRUBANK/',
+  GALICIA: './temp/comprobantes/Galicia/',
+  GALICIA2: './temp/comprobantes/Galicia2/',
+  Astropay: './temp/comprobantes/AstroPay/',
+  BancoCiudad: './temp/comprobantes/BancoCiudad/',
+  BancoDelSol: './temp/comprobantes/BancoDelSol/',
+  GaliciaMas: './temp/comprobantes/GaliciaMas/',
+  NaranjaX: './temp/comprobantes/NaranjaX/',
+  ICBC: './temp/comprobantes/ICBC/',
+  Hipotecario: './temp/comprobantes/Hipotecario/',
+  PersonalPay: './temp/comprobantes/PersonalPay/',
+  Provincia: './temp/comprobantes/Provincia/',
+  Supervielle: './temp/comprobantes/Supervielle/',
+  Uala2: './temp/comprobantes/Uala2/',
+  Uala: './temp/comprobantes/Uala/',
+  Macro: './temp/comprobantes/Macro/',
+  Lemon: './temp/comprobantes/Lemon/',
+  Prex: './temp/comprobantes/Prex/',
+  Patagonia: './temp/comprobantes/Patagonia/',
+  NBCH: './temp/comprobantes/NBCH/'
 };
 
 async function classifyBankStatement(filePath) {
@@ -108,38 +109,29 @@ let allTransferData = [];
 
 async function convertPdfToPng(pdfPath, outputDir) {
   const fileName = path.basename(pdfPath, path.extname(pdfPath));
-  const outputFileName = `${fileName}-1.png`; // Primera página del PDF
+  const outputFileName = `${fileName}-1.png`;
   const outputPath = path.join(outputDir, outputFileName);
 
-  let opts = {
-    format: 'png',
-    out_dir: outputDir,
-    out_prefix: fileName,
-    page: 1,
-  };
+  const converter = fromPath(pdfPath, {
+    density: 150,
+    saveFilename: fileName,
+    savePath: outputDir,
+    format: "png",
+    width: 1000,
+    height: 1414
+  });
 
   try {
-    await pdfPoppler.convert(pdfPath, opts);
-    
-    if (!fs.existsSync(outputPath)) {
-      console.error(`❌ Error: No se encontró el archivo convertido ${outputPath}`);
-      console.error(`📂 Verifique si pdf-poppler generó un archivo con otro nombre.`);
-      
-      const possibleFiles = fs.readdirSync(outputDir).filter(file => file.startsWith(fileName) && file.endsWith('.png'));
-      
-      if (possibleFiles.length > 0) {
-        console.log(`🔍 Se encontró otro archivo generado: ${possibleFiles[0]}`);
-        return path.join(outputDir, possibleFiles[0]);
-      } else {
-        console.error(`❌ No se encontró ningún archivo PNG en la carpeta de salida.`);
-        return null;
-      }
+    const result = await converter(1); // página 1 del PDF
+    if (result.success && fs.existsSync(outputPath)) {
+      console.log(`✅ PDF convertido a PNG: ${outputPath}`);
+      return outputPath;
+    } else {
+      console.error(`❌ Error: No se generó la imagen para ${pdfPath}`);
+      return null;
     }
-
-    console.log(`✅ PDF convertido a PNG: ${outputPath}`);
-    return outputPath;
   } catch (error) {
-    console.error(`❌ Error convirtiendo ${pdfPath} a PNG:`, error);
+    console.error(`❌ Error al convertir ${pdfPath} con pdf2pic:`, error);
     return null;
   }
 }
@@ -174,7 +166,7 @@ export async function processFolder(folderPath) {
 }
 
 async function processAllImages() {
-  const folderTodos = './todos/';
+  const folderTodos = './temp/todos/';
   if (!fs.existsSync(folderTodos)) return;
   const files = fs.readdirSync(folderTodos);
 
@@ -201,7 +193,7 @@ async function processAllImages() {
   if (uniqueData.length > 0) {
     const csv = parse(uniqueData, { fields: Object.keys(uniqueData[0]) });
     let comprobanteName = `todos_comprobantes_${(new Date()).toISOString().split('T')[0].split('-').reverse().join('-')}.csv`;
-    fs.writeFileSync(`comprobantes_csv/${comprobanteName}`, csv, 'utf-8');
+    fs.writeFileSync(`./temp/comprobantes_csv/${comprobanteName}`, csv, 'utf-8');
     console.log('📂 CSV guardado sin duplicados: comprobantes_csv/todos_comprobantes.csv');
   }
 }
