@@ -1,20 +1,10 @@
 services:
   - type: web
-    name: pdf-app
+    name: comprobantes-backend
     env: node
+    plan: free
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node server.js
     envVars:
-      - key: NODE_VERSION
-        value: 20
-
-# services:
-#   - type: web
-#     name: comprobantes-backend
-#     env: node
-#     plan: free
-#     buildCommand: npm install
-#     startCommand: npm start
-#     envVars:
-#       - key: FRONTEND_ORIGIN
-#         value: http://localhost:3000
+      - key: FRONTEND_ORIGIN
+        value: http://localhost:3000
