@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Conversor PDF-CSV</title>
+</head>
+<body>
+   <form id="uploadForm" action="http://localhost:3000" method="post" enctype="multipart/form-data" class="form">
+        <div class="form__box">
+<!--             <img class="form__icon" src="./assets/mp.png" alt=""> -->
+            <label class="form__label" for="Mp">Comprobantes:</label>
+            <input class="form__input" type="file" name="files" id="files" multiple>            
+        </div>
+        <div id="spinnerWrapper" style="display:none;">
+            <div class="spinner"></div>
+        </div>
+        <button class="form__button" type="submit">Procesar</button>
+    </form>
+    <script src="script.js"></script> 
+</body>
+</html>
