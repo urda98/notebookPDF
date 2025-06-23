@@ -31,7 +31,10 @@ if (!fs.existsSync(folderComprobantes)) {
 })); */
 
 app.use(cors({
-  origin: process.env.FRONTEND_ORIGIN || "http://localhost:3000" || 'https://tu-frontend.vercel.app'
+    origin: [
+    'https://pdf-converter-front-3amtnynjt-inakis-projects-5d0fe67b.vercel.app',
+    'http://localhost:3000' // opcional para test local
+  ]
 }));
 
 // Función de almacenamiento para Multer
