@@ -31,7 +31,7 @@ if (!fs.existsSync(folderComprobantes)) {
 })); */
 
 app.use(cors({
-  origin: process.env.FRONTEND_ORIGIN || "http://localhost:3000"
+  origin: process.env.FRONTEND_ORIGIN || "http://localhost:3000" || 'https://tu-frontend.vercel.app'
 }));
 
 // Función de almacenamiento para Multer
