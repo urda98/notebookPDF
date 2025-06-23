@@ -7,23 +7,31 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import cors from 'cors';
 import processAllImages from './processAllImages.js';
+import createRequiredFolders from './createRequiredFolders.js';
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+createRequiredFolders();
+
 // Carpeta para guardar los comprobantes
 const folderComprobantes = './temp/todos/';
+const comprobanteCSVFolder = './temp/comprobantes_csv/';
 
 // Asegurarse de que la carpeta exista
 if (!fs.existsSync(folderComprobantes)) {
   fs.mkdirSync(folderComprobantes, { recursive: true });
 }
 
-app.use(cors({
+/* app.use(cors({
   origin: "http://localhost:3000"
+})); */
+
+app.use(cors({
+  origin: process.env.FRONTEND_ORIGIN || "http://localhost:3000"
 }));
 
 // Función de almacenamiento para Multer
@@ -67,6 +75,9 @@ app.post('/upload', upload.array('files', 200), async (req, res) => {
     let comprobanteName = `todos_comprobantes_${(new Date()).toISOString().split('T')[0].split('-').reverse().join('-')}.csv`;
 
     const csvFilePath = `./temp/comprobantes_csv/${comprobanteName}`;
+    if (!fs.existsSync(comprobanteCSVFolder)) {
+      fs.mkdirSync(comprobanteCSVFolder, { recursive: true });
+    }
 
     limpiarCarpeta('./temp/todos');
     const carpetaComprobantes = './temp/comprobantes';

@@ -35,6 +35,17 @@ let carpetasComprobantes = {
   NBCH: './temp/comprobantes/NBCH/'
 };
 
+const requiredFolders = [
+  './temp/comprobantes/',
+  './temp/comprobantes_csv/',
+  './temp/todos/',
+  ...Object.values(carpetasComprobantes)
+];
+
+for (const folder of requiredFolders) {
+  if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
+}
+
 async function classifyBankStatement(filePath) {
   let text = '';
 
@@ -105,7 +116,6 @@ async function extractTextFromImage(imagePath) {
   }
 }
 
-let allTransferData = [];
 
 async function convertPdfToPng(pdfPath, outputDir) {
   const fileName = path.basename(pdfPath, path.extname(pdfPath));
@@ -136,7 +146,7 @@ async function convertPdfToPng(pdfPath, outputDir) {
   }
 }
 
-export async function processFolder(folderPath) {
+export async function processFolder(folderPath, allTransferData) {
   if (!fs.existsSync(folderPath)) return;
   const files = fs.readdirSync(folderPath);
 
@@ -166,6 +176,7 @@ export async function processFolder(folderPath) {
 }
 
 async function processAllImages() {
+  let allTransferData = [];
   const folderTodos = './temp/todos/';
   if (!fs.existsSync(folderTodos)) return;
   const files = fs.readdirSync(folderTodos);
@@ -177,7 +188,7 @@ async function processAllImages() {
   }
 
   // Procesar los archivos dentro de las carpetas de cada banco
-  await Promise.all(Object.values(carpetasComprobantes).map(folder => processFolder(folder)));
+  await Promise.all(Object.values(carpetasComprobantes).map(folder => processFolder(folder, allTransferData)));
 
   const uniqueData = [];
   const seenIds = new Set();
