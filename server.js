@@ -32,7 +32,7 @@ if (!fs.existsSync(folderComprobantes)) {
 
 app.use(cors({
     origin: [
-    'https://pdf-converter-front-3amtnynjt-inakis-projects-5d0fe67b.vercel.app',
+    'https://pdf-converter-theta.vercel.app/',
     'http://localhost:3000' // opcional para test local
   ]
 }));
