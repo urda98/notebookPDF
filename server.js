@@ -30,11 +30,19 @@ if (!fs.existsSync(folderComprobantes)) {
   origin: "http://localhost:3000"
 })); */
 
+const WHITELIST = [
+  "http://localhost:3000",
+  "https://pdf-converter-theta.vercel.app", // <--- Agregá tu dominio de Vercel
+];
+
 app.use(cors({
-    origin: [
-    'https://pdf-converter-theta.vercel.app/',
-    'http://localhost:3000' // opcional para test local
-  ]
+  origin: (origin, callback) => {
+    if (!origin || WHITELIST.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`❌ CORS bloqueado para: ${origin}`));
+    }
+  },
 }));
 
 // Función de almacenamiento para Multer
