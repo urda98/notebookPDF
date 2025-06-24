@@ -5,6 +5,6 @@ services:
     plan: free
     buildCommand: npm install
     startCommand: node server.js
-    envVars:
-      - key: FRONTEND_ORIGIN
-        value: https://pdf-converter-theta.vercel.app
+    # envVars:
+    #   - key: FRONTEND_ORIGIN
+    #     value: https://pdf-converter-theta.vercel.app

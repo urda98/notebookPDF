@@ -26,10 +26,6 @@ if (!fs.existsSync(folderComprobantes)) {
   fs.mkdirSync(folderComprobantes, { recursive: true });
 }
 
-/* app.use(cors({
-  origin: "http://localhost:3000"
-})); */
-
 const WHITELIST = [
   "http://localhost:3000",
   "https://pdf-converter-theta.vercel.app", // <--- Agregá tu dominio de Vercel
