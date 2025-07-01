@@ -61,7 +61,7 @@ async function classifyBankStatement(filePath) {
 
   // Definir las expresiones regulares para identificar los bancos
   const bankKeywords = {
-    Uala2: /u\s*a\s*l\s*[aá]/i,
+    Uala2: /u\s*a\s*l\s*[aá]|(?<!\w)lá\s/i,
     Macro: /CA - PESOS -/i,
     BNA: /(^<\s*E\s+Transferencia\s*$)|(^Fecha\s+\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}:\d{2}\s+[A-Z\s]{3,}$)/gim,
     Provincia: /Banco Provincia/i,
