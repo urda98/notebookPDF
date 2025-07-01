@@ -74,7 +74,7 @@ async function classifyBankStatement(filePath) {
     NBCH: /NBCH/i,
     CuentaDni: /\bDNI\b/i,
     ICBC: /Sujeto a impuestos y comisiones determinadas por tu banco\.\s+La transferencia se cursó al destino de forma inmediata\./i,
-    Santander: /Santander|Só|Sd/i,
+    Santander: /Santander|Só/i,
     GaliciaMas: /Galicia Más/i,
     GALICIA: /\bGalicia\b/i,
     BancoDelSol:/BANCO\s*[\w\s]*DEL\s*SOL[\s\S]*?SANCOR\s+SEGUROS/i,
