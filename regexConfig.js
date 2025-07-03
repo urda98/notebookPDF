@@ -160,8 +160,8 @@ const bankRegexMap = {
     './temp/comprobantes/Uala2/':{
       fecha: /(\d{2}\/\d{2}\/\d{4})\s+\d{2}:\d{2}\s+hs/,  
       nombreEmisor: /Nombre remitente\s([A-Za-z\s]+(?:\s[A-Za-z]+)+)/,  
-      monto: /Monto debitado\s\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/,  
-      cuil: /CUIT destino\s(\d{2}-\d{8}-\d)/,  
+      monto: /Monto debitado\s+\$([\d\.]+,\d{2})/i,  
+      cuil: /CUIT destino\s(\d{11})/,  
       codigoIdentificacion: /Id Op.\s([A-Za-z0-9]+)/,
       banco: "Uala" 
     }, 
