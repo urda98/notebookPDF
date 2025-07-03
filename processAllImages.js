@@ -394,7 +394,9 @@ async function processAllImages() {
     await classifyBankStatement(filePath);
   }
 
-  await Promise.all(Object.values(carpetasComprobantes).map(folder => processFolder(folder, allTransferData)));
+  for (const folder of Object.values(carpetasComprobantes)) {
+    await processFolder(folder, allTransferData); // uno por uno, espera a que termine
+  }
 
   const uniqueData = [];
   const seenIds = new Set();
