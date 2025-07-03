@@ -163,6 +163,7 @@ const bankRegexMap = {
       monto: /Monto debitado\s+\$([\d\.]+,\d{2})/i,  
       cuil: /CUIT destino\s(\d{11})/,  
       codigoIdentificacion: /Id Op.\s([A-Za-z0-9]+)/,
+      cuentaDestino: /Cuenta destino\s([^\n\r]+)/,
       banco: "Uala" 
     }, 
     './temp/comprobantes/Macro/':{
