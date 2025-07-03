@@ -20,7 +20,7 @@ export async function detectCompro(imagePath, folderPath) {
     psm: 3
   });
   const text = data.text;
-  console.log(`📜 Texto extraído:\n${text}\n`);
+  //console.log(`📜 Texto extraído:\n${text}\n`);
 
   var regexPatterns;
 
