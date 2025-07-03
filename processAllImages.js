@@ -327,12 +327,12 @@ async function convertPdfToPng(pdfPath, outputDir) {
   const outputPath = path.join(outputDir, outputFileName);
 
   const converter = fromPath(pdfPath, {
-    density: 150,
+    density: 100,
     saveFilename: fileName,
     savePath: outputDir,
     format: "png",
-    width: 1000,
-    height: 1414
+    width: 800,
+    height: 1100
   });
 
   try {
