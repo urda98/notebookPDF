@@ -12,7 +12,7 @@ async function preprocessImage(imagePath) {
       .grayscale()
       .threshold(180)
       .toFile(processedImagePath);
-    console.log(`🖼 Imagen preprocesada y guardada en: ${processedImagePath}`);
+    //console.log(`🖼 Imagen preprocesada y guardada en: ${processedImagePath}`);
   } else {
     console.log(`🖼 Imagen ya preprocesada existe: ${processedImagePath}`);
   }
@@ -33,7 +33,7 @@ export async function extractTransferData(imagePath, folderPath) {
     psm: 3
   });
   const text = data.text;
-  console.log(`📜 Texto extraído:\n${text}\n`);
+  //console.log(`📜 Texto extraído:\n${text}\n`);
 
  const regexPatterns = bankRegexMap[folderPath];
 
@@ -49,8 +49,8 @@ if (!regexPatterns) {
       return "SIN DATOS";
     }
     const match = text.match(pattern);
-    console.log(`🔍 Buscando con regex: ${pattern}`);
-    console.log(`📌 Resultado encontrado:`, match);
+    //console.log(`🔍 Buscando con regex: ${pattern}`);
+    //console.log(`📌 Resultado encontrado:`, match);
     return match && match[1] ? match[1].trim() : "SIN DATOS";
   }
 

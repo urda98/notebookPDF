@@ -313,7 +313,7 @@ async function classifyBankStatement(filePath) {
 async function extractTextFromImage(imagePath) {
   try {
     const { data } = await Tesseract.recognize(imagePath, 'spa', { logger: m => console.log(m) });
-    console.log("🔍 Texto extraído del comprobante:", data.text);
+    //console.log("🔍 Texto extraído del comprobante:", data.text);
     return data.text;
   } catch (error) {
     console.error(`❌ Error en OCR para ${imagePath}:`, error);
