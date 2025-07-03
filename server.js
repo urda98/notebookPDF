@@ -28,7 +28,7 @@ if (!fs.existsSync(folderComprobantes)) {
 
 const WHITELIST = [
   "http://localhost:3000",
-  "https://pdf-converter-theta.vercel.app", // <--- Agregá tu dominio de Vercel
+  "https://pdf-converter-theta.vercel.app" // directamente hardcodeado
 ];
 
 app.use(cors({

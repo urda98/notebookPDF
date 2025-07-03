@@ -157,7 +157,7 @@ const bankRegexMap = {
       codigoIdentificacion: /Número de Control\s([A-Za-z0-9]+)/,
       banco: "Supervielle" 
     }, 
-    './temp/comprobantes/Uala/':{
+    './temp/comprobantes/Uala2/':{
       fecha: /(\d{2}\/\d{2}\/\d{4})\s+\d{2}:\d{2}\s+hs/,  
       nombreEmisor: /Nombre remitente\s([A-Za-z\s]+(?:\s[A-Za-z]+)+)/,  
       monto: /Monto debitado\s\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/,  
@@ -165,15 +165,6 @@ const bankRegexMap = {
       codigoIdentificacion: /Id Op.\s([A-Za-z0-9]+)/,
       banco: "Uala" 
     }, 
-    './temp/comprobantes/Uala/':{
-        fecha:/Fecha y hora\s([\d\w\s]+?)(?=\s*-\d{2}:\d{2}hs)/, 
-        nombreEmisor: /Nombre remitente\s([A-Za-z\sÁÉÍÓÚáéíóúÑñ]+)(?=\s*Concepto)/i, 
-        monto: /Monto debitado\s?\$([\d.,]+)/,  
-        cuil: "SIN DATOS",
-        codigoIdentificacion: /Id Op.\s+(\S+)/, 
-        cuentaDestino: /Cuenta destino\s([A-Za-z\sÁÉÍÓÚáéíóúÑñ]+)/,
-        banco: "Uala"
-    },
     './temp/comprobantes/Macro/':{
         fecha: /(\d{2}\/\d{2}\/\d{4})/, 
         nombreEmisor: "SIN DATOS",  
