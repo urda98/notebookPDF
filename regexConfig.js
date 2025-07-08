@@ -106,11 +106,11 @@ const bankRegexMap = {
     },
     './temp/comprobantes/NaranjaX/':{
       fecha: /(\d{2}\/[A-Za-z]{3}\/\d{4})/,
-      nombreEmisor: /Cuenta origen\s+NX\s+([A-Za-z\sÁÉÍÓÚÑñ]+)/,
+      nombreEmisor: /Cuenta origen\s+NX\s+([\p{L}\s]+?)(?=\s+Naranja X)/u,
       monto: /\bs\s([\d.,]+)/,
       cuil: /CUIL\s(\d{2}-\d{8}-\d)/,
       codigoIdentificacion: /COELSA ID\s+([\w\d]+)/,
-      cuentaDestino: /Cuenta destino\s+e\s+([\p{L}\s.]+?)\s+o BancoVirtual/u,
+      cuentaDestino: /Cuenta destino\s+([^\n]+)\s+— BancoVirtual/i,
       banco: "NaranjaX" 
     }, 
     './temp/comprobantes/ICBC/':{
