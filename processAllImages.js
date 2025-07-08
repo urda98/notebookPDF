@@ -270,7 +270,7 @@ async function classifyBankStatement(filePath) {
   }
 
   const bankKeywords = {
-    Santander: /Santander|Só/i,
+    Santander: /Santander|módulo\s+de\s+Pagos\s+y\s+Transferencias\s+en\s+Online\s+Banking\s+Personas/i,
     Uala2: /u\s*a\s*l\s*[aá]|(?<!\w)lá\s/i,
     Macro: /CA - PESOS -/i,
     BNA: /(^<\s*E\s+Transferencia\s*$)|(^Fecha\s+\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}:\d{2}\s+[A-Z\s]{3,}$)/gim,
