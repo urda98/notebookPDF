@@ -155,7 +155,7 @@ export async function processFolder(folderPath, allTransferData, worker) {
     if (['.png', '.jpg', '.jpeg'].includes(path.extname(filePath).toLowerCase())) {
       console.log(`🔍 Procesando: ${filePath}`);
       try {
-        const transferData = await extractTransferData(filePath, folderPath);
+        const transferData = await extractTransferData(filePath, folderPath, worker);
         if (transferData) {
           const fileName = path.parse(filePath).name;
           generateXML(transferData, fileName);

@@ -20,13 +20,13 @@ async function preprocessImage(imagePath) {
   return processedImagePath;
 }
 
-export async function extractTransferData(imagePath, folderPath) {
+export async function extractTransferData(imagePath, folderPath, worker) {
   const processedPath = await preprocessImage(imagePath);
     if (!fs.existsSync(processedPath)) {
       console.error(`❌ No se pudo generar imagen preprocesada para: ${imagePath}`);
       return null;
     }
-  const { data } = await Tesseract.recognize(processedPath, 'spa', {
+  const { data } = await worker.recognize(processedPath, 'spa', {
     tessedit_char_whitelist: '0123456789$,.',
     logger: (m) => console.log(m),
     oem: 3,
