@@ -31,13 +31,8 @@ export async function extractTransferData(imagePath, folderPath, worker) {
     oem: 3,
     psm: 3
   }); */
-  await worker.setParameters({
-  tessedit_char_whitelist: '0123456789$,.',
-  preserve_interword_spaces: '1',
-  user_defined_dpi: '150'
-  });  
   
-  const { data } = await worker.recognize(processedPath, { lang: 'spa' });
+  const { data } = await worker.recognize(processedPath);
   const text = data.text;
   //console.log(`📜 Texto extraído:\n${text}\n`);
 
