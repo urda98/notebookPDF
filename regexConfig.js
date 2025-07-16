@@ -5,7 +5,7 @@ const bankRegexMap = {
     monto: /\$\s*([\d\.,]+)\s*Motivo:/i,
     cuil: /(?:CUIT|CUIL|DNI|Identificación fiscal)[^\d]*(\d{2}-?\d{7,8}-?\d)/i,
     codigoIdentificacion: /(?:Código de identificación)[^\w]*(\w+)/i,
-    cuentaDestino : /Para\s+([A-Za-záéíóúÁÉÍÓÚñÑ\s\.]+)/,
+    cuentaDestino : /Para\s+([A-Za-zÁÉÍÓÚáéíóúÑñ\s.]+)(?=\s+CUIT\/CUIL)/i,
     banco: "MP"
   },
   './temp/comprobantes/BNA/': {
