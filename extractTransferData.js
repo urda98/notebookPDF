@@ -1,4 +1,3 @@
-import { createWorker } from 'tesseract.js';
 import sharp from 'sharp';
 import bankRegexMap from './regexConfig.js';
 import fs from 'fs';
@@ -26,12 +25,13 @@ export async function extractTransferData(imagePath, folderPath, worker) {
       console.error(`❌ No se pudo generar imagen preprocesada para: ${imagePath}`);
       return null;
     }
-  const { data } = await worker.recognize(processedPath, 'spa', {
+/*   const { data } = await worker.recognize(processedPath, 'spa', {
     tessedit_char_whitelist: '0123456789$,.',
     logger: (m) => console.log(m),
     oem: 3,
     psm: 3
-  });
+  }); */
+  const { data } = await worker.recognize(processedPath);
   const text = data.text;
   //console.log(`📜 Texto extraído:\n${text}\n`);
 
