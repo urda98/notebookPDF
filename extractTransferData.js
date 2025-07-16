@@ -1,4 +1,4 @@
-import Tesseract from 'tesseract.js';
+import { createWorker } from 'tesseract.js';
 import sharp from 'sharp';
 import bankRegexMap from './regexConfig.js';
 import fs from 'fs';
