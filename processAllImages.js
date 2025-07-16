@@ -174,9 +174,6 @@ async function processAllImages() {
   let allTransferData = [];
 
   const worker = await createWorker('spa');
-  await worker.load();
-  await worker.loadLanguage('spa');
-  await worker.initialize('spa');
 
   const folderTodos = './temp/todos/';
   if (!fs.existsSync(folderTodos)) return;
