@@ -133,11 +133,11 @@ const bankRegexMap = {
     },
     './temp/comprobantes/PersonalPay/':{
       fecha: /(\d{2}\/\d{2}\/\d{4})/, 
-      nombreEmisor: /Envía\s([A-Za-z\sÁÉÍÓÚÑñ,]+)/,  
-      monto: /([\d]{1,3}(?:[\.,]\d{3})*(?:[\.,]\d{2})?)(?=\s*Fecha)/i, 
+      nombreEmisor: /Envía\s+([A-Za-zÁÉÍÓÚÑñ\s,]+)(?=\s*CUIL)/i,  
+      monto: /s?\$?\s*([\d.]+)(?=\s*Fecha)/i, 
       cuil:  /CUIL\/CUIT\s(\d{2}-\d{8}-\d)/,
       codigoIdentificacion: /CoelsalD (\S+)/,
-      cuentaDestino: /Recibe\s([A-Za-z\sÁÉÍÓÚÑñ]+)/,
+      cuentaDestino: /Recibe\s+([A-Za-zÁÉÍÓÚÑñ\s,\.]+)(?=\s*CUIL)/i,
       banco: "PersonalPay" 
     },
     './temp/comprobantes/Provincia/':{
