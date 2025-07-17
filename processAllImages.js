@@ -192,6 +192,22 @@ export async function processFolder(folderPath, allTransferData, worker) {
   }
 }
 
+function clearFilesInFolder(folderPath) {
+  if (!fs.existsSync(folderPath)) return;
+  const entries = fs.readdirSync(folderPath, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(folderPath, entry.name);
+    if (entry.isFile()) {
+      try {
+        fs.unlinkSync(fullPath);
+        console.log(`🧹 Archivo eliminado: ${fullPath}`);
+      } catch (err) {
+        console.warn(`⚠️ No se pudo eliminar archivo ${fullPath}:`, err);
+      }
+    }
+  }
+}
+
 async function processAllImages() {
   let allTransferData = [];
 
@@ -215,29 +231,10 @@ async function processAllImages() {
   
   await worker.terminate();
 
-
-  
-  // ✅ Limpiar carpetas de comprobantes clasificadas
   for (const folder of Object.values(carpetasComprobantes)) {
-    try {
-      if (fs.existsSync(folder)) {
-        fs.rmSync(folder, { recursive: true, force: true });
-        console.log(`🧹 Carpeta eliminada: ${folder}`);
-      }
-    } catch (err) {
-      console.warn(`⚠️ No se pudo eliminar carpeta ${folder}:`, err);
-    }
+    clearFilesInFolder(folder);
   }
-
-  // ✅ Limpiar carpeta "todos" (por si quedó algo)
-  try {
-    if (fs.existsSync(folderTodos)) {
-      fs.rmSync(folderTodos, { recursive: true, force: true });
-      console.log(`🧹 Carpeta eliminada: ${folderTodos}`);
-    }
-  } catch (err) {
-    console.warn(`⚠️ No se pudo eliminar carpeta todos:`, err);
-  }
+  clearFilesInFolder(folderTodos);
 
 
 
