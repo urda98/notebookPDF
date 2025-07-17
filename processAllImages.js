@@ -156,6 +156,28 @@ export async function processFolder(folderPath, allTransferData, worker) {
       console.log(`🔍 Procesando: ${filePath}`);
       try {
         const transferData = await extractTransferData(filePath, folderPath, worker);
+
+                // ✅ Eliminar imagen original
+        try {
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+            console.log(`🧹 Imagen eliminada: ${filePath}`);
+          }
+        } catch (err) {
+          console.warn(`⚠️ No se pudo eliminar imagen original ${filePath}:`, err);
+        }
+
+        // ✅ Eliminar imagen preprocesada (ej: "archivo.jpeg-processed.png")
+        const processedPath = `${filePath}-processed.png`;
+        try {
+          if (fs.existsSync(processedPath)) {
+            fs.unlinkSync(processedPath);
+            console.log(`🧹 Imagen preprocesada eliminada: ${processedPath}`);
+          }
+        } catch (err) {
+          console.warn(`⚠️ No se pudo eliminar imagen preprocesada ${processedPath}:`, err);
+        }
+        
         if (transferData) {
           const fileName = path.parse(filePath).name;
           generateXML(transferData, fileName);
@@ -188,7 +210,36 @@ async function processAllImages() {
     await processFolder(folder, allTransferData, worker); // uno por uno, espera a que termine
   }
 
+
+
+  
   await worker.terminate();
+
+
+  
+  // ✅ Limpiar carpetas de comprobantes clasificadas
+  for (const folder of Object.values(carpetasComprobantes)) {
+    try {
+      if (fs.existsSync(folder)) {
+        fs.rmSync(folder, { recursive: true, force: true });
+        console.log(`🧹 Carpeta eliminada: ${folder}`);
+      }
+    } catch (err) {
+      console.warn(`⚠️ No se pudo eliminar carpeta ${folder}:`, err);
+    }
+  }
+
+  // ✅ Limpiar carpeta "todos" (por si quedó algo)
+  try {
+    if (fs.existsSync(folderTodos)) {
+      fs.rmSync(folderTodos, { recursive: true, force: true });
+      console.log(`🧹 Carpeta eliminada: ${folderTodos}`);
+    }
+  } catch (err) {
+    console.warn(`⚠️ No se pudo eliminar carpeta todos:`, err);
+  }
+
+
 
   const uniqueData = [];
   const seenIds = new Set();
