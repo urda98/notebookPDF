@@ -72,7 +72,7 @@ if (!regexPatterns) {
     !transfer.codigoIdentificacion ||
     transfer.codigoIdentificacion === "SIN DATOS"
   ) {
-    const fallbackKey = `${transfer.banco}-${transfer.cuil}-${transfer.cuentaDestino}-${transfer.monto}-${transfer.fecha}`;
+    const fallbackKey = `${transfer.banco}-${transfer.cuil}-${transfer.cuentaDestino}-${transfer.monto}-${transfer.fecha}-${Date.now()}-${Math.random()}`;
     transfer.codigoIdentificacion = `GEN-${Buffer.from(fallbackKey).toString('base64').slice(0, 10)}`;
     console.warn(`⚠️ Se generó códigoIdentificacion alternativo para comprobante sin identificador: ${transfer.codigoIdentificacion}`);
   }
