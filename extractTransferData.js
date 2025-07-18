@@ -54,28 +54,33 @@ if (!regexPatterns) {
     //console.log(`📌 Resultado encontrado:`, match);
     return match && match[1] ? match[1].trim() : "SIN DATOS";
   }
-  const transfer = {
-    hoy: (new Date()).toISOString().split('T')[0].split('-').reverse().join('/'),
-    fecha: findMatch(text, regexPatterns.fecha),
+  // Extraer todos los campos primero
+  const fecha = findMatch(text, regexPatterns.fecha);
+  const monto = findMatch(text, regexPatterns.monto);
+  const nombreEmisor = findMatch(text, regexPatterns.nombreEmisor);
+  const cuil = findMatch(text, regexPatterns.cuil);
+  const cuentaDestino = findMatch(text, regexPatterns.cuentaDestino);
+  let codigoIdentificacion = findMatch(text, regexPatterns.codigoIdentificacion);
+
+  // Generar un código único si no se encuentra uno en el texto
+  if (codigoIdentificacion === "SIN DATOS") {
+    const hashBase = `${imagePath}-${Math.random()}`; // Evita duplicados
+    const base64 = Buffer.from(hashBase).toString('base64').slice(0, 10);
+    codigoIdentificacion = `GEN-${base64}`;
+  }
+
+  return {
+    hoy: new Date().toISOString().split('T')[0].split('-').reverse().join('/'),
+    fecha,
     np: "NP",
-    monto: findMatch(text, regexPatterns.monto),
+    monto,
     banco: regexPatterns.banco,
     tt: "TT",
-    nombreEmisor: findMatch(text, regexPatterns.nombreEmisor),
-    cuil: findMatch(text, regexPatterns.cuil),
-    codigoIdentificacion: findMatch(text, regexPatterns.codigoIdentificacion),
-    cuentaDestino: findMatch(text, regexPatterns.cuentaDestino),
+    nombreEmisor,
+    cuil,
+    codigoIdentificacion,
+    cuentaDestino,
   };
-
-  // Generar código alternativo si no existe
-  if (
-    !transfer.codigoIdentificacion ||
-    transfer.codigoIdentificacion === "SIN DATOS"
-  ) {
-    const fallbackKey = `${transfer.banco}-${transfer.cuil}-${transfer.cuentaDestino}-${transfer.monto}-${Date.now()}-${Math.random()}`;
-    transfer.codigoIdentificacion = `GEN-${Buffer.from(fallbackKey).toString('base64').slice(0, 10)}`;
-    console.warn(`⚠️ Se generó códigoIdentificacion alternativo para comprobante sin identificador: ${transfer.codigoIdentificacion}`);
-  }
 
   return transfer;
 }
