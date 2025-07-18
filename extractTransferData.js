@@ -10,7 +10,7 @@ async function preprocessImage(imagePath) {
   if (!fs.existsSync(processedImagePath)) {
     await sharp(imagePath)
       .grayscale()
-      .threshold(160)
+      .threshold(180)
       .toFile(processedImagePath);
     //console.log(`🖼 Imagen preprocesada y guardada en: ${processedImagePath}`);
   } else {
@@ -35,7 +35,6 @@ export async function extractTransferData(imagePath, folderPath, worker) {
     await worker.setParameters({
     tessedit_char_whitelist: '0123456789$,.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzáéíóúÁÉÍÓÚ- ',
     preserve_interword_spaces: '1',
-    tessedit_pageseg_mode: '6',
   });
   
   const { data } = await worker.recognize(processedPath);
