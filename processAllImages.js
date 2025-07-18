@@ -31,7 +31,8 @@ let carpetasComprobantes = {
   Lemon: './temp/comprobantes/Lemon/',
   Prex: './temp/comprobantes/Prex/',
   Patagonia: './temp/comprobantes/Patagonia/',
-  NBCH: './temp/comprobantes/NBCH/'
+  NBCH: './temp/comprobantes/NBCH/',
+  BancoDeLaPampa: './temp/comprobantes/BancoDeLaPampa/',
 };
 
 const requiredFolders = [
@@ -77,6 +78,8 @@ async function classifyBankStatement(filePath, worker) {
     BancoCiudad: /Canal\s+Referencia\s+Banca\s+M[oó]vil/i,
     PersonalPay: /\bPersonal Pay\b/i,
     Prex: /Prex/i,
+    Lemon: /LEMON\b/i,
+    BancoDeLaPampa: /Banco\s+de\s+La\s+Pampa/i,
   };
 
   for (const [bank, regex] of Object.entries(bankKeywords)) {

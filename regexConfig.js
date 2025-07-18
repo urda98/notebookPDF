@@ -210,6 +210,15 @@ const bankRegexMap = {
       codigoIdentificacion: /Código de identificación:\s*([A-Z0-9]+)/i,  
       cuentaDestino: /Destinatario\s+([A-Z\s.]+)/i,
       banco: "NBCH" 
+    },
+    './temp/comprobantes/BancoDeLaPampa/':{
+      fecha: /\b(\d{2}\/\d{2}\/\d{4})\b/, 
+      nombreEmisor: /Origen Fecha y hora\s+([A-ZÁÉÍÓÚÑ\s]+)/i,  
+      monto:  /\$\s*([\d.]+,\d{2})/, 
+      cuil: /CUIL:[^\d]*\d{2}-\d{8}-\d[^\d]+CUIL: *(\d{2}-\d{8}-\d)/,
+      codigoIdentificacion: /N\* de operación Referencia\s+([A-Z0-9]+)/i,  
+      cuentaDestino: /Destino\s+(.+?)\s+MISMO TITULAR/i,
+      banco: "DeLaPampa" 
     }
   };
 
