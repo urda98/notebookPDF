@@ -1,6 +1,7 @@
 import sharp from 'sharp';
 import bankRegexMap from './regexConfig.js';
 import fs from 'fs';
+import crypto from 'crypto';
 
 
 async function preprocessImage(imagePath) {
@@ -64,9 +65,8 @@ if (!regexPatterns) {
 
   // Generar un código único si no se encuentra uno en el texto
   if (codigoIdentificacion === "SIN DATOS") {
-    const hashBase = `${imagePath}-${Math.random()}`; // Evita duplicados
-    const base64 = Buffer.from(hashBase).toString('base64').slice(0, 10);
-    codigoIdentificacion = `GEN-${base64}`;
+    const uniqueId = crypto.randomUUID().replace(/-/g, '').slice(0, 10); // más corto
+    codigoIdentificacion = `GEN-${uniqueId}`;
   }
 
   return {
