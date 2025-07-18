@@ -32,6 +32,10 @@ export async function extractTransferData(imagePath, folderPath, worker) {
     oem: 3,
     psm: 3
   }); */
+    await worker.setParameters({
+    tessedit_char_whitelist: '0123456789$,.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzáéíóúÁÉÍÓÚ- ',
+    preserve_interword_spaces: '1',
+  });
   
   const { data } = await worker.recognize(processedPath);
   const text = data.text;
@@ -82,7 +86,6 @@ if (!regexPatterns) {
     cuentaDestino,
   };
 
-  return transfer;
 }
 
 export default extractTransferData;
