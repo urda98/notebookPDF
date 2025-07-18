@@ -54,9 +54,8 @@ if (!regexPatterns) {
     //console.log(`📌 Resultado encontrado:`, match);
     return match && match[1] ? match[1].trim() : "SIN DATOS";
   }
-
-  return {
-    hoy : (new Date()).toISOString().split('T')[0].split('-').reverse().join('/'),
+  const transfer = {
+    hoy: (new Date()).toISOString().split('T')[0].split('-').reverse().join('/'),
     fecha: findMatch(text, regexPatterns.fecha),
     np: "NP",
     monto: findMatch(text, regexPatterns.monto),
@@ -67,6 +66,18 @@ if (!regexPatterns) {
     codigoIdentificacion: findMatch(text, regexPatterns.codigoIdentificacion),
     cuentaDestino: findMatch(text, regexPatterns.cuentaDestino),
   };
+
+  // Generar código alternativo si no existe
+  if (
+    !transfer.codigoIdentificacion ||
+    transfer.codigoIdentificacion === "SIN DATOS"
+  ) {
+    const fallbackKey = `${transfer.banco}-${transfer.cuil}-${transfer.cuentaDestino}-${transfer.monto}-${transfer.fecha}`;
+    transfer.codigoIdentificacion = `GEN-${Buffer.from(fallbackKey).toString('base64').slice(0, 10)}`;
+    console.warn(`⚠️ Se generó códigoIdentificacion alternativo para comprobante sin identificador: ${transfer.codigoIdentificacion}`);
+  }
+
+  return transfer;
 }
 
 export default extractTransferData;
