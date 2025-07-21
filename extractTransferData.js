@@ -10,7 +10,10 @@ async function preprocessImage(imagePath) {
   if (!fs.existsSync(processedImagePath)) {
     await sharp(imagePath)
       .grayscale()
-      .threshold(180)
+      .resize({ width: 1800 })              // Amplía para mayor precisión
+      .normalize()                          // Mejora contraste
+      .threshold(160)                       // Umbral más suave que 180
+      .sharpen({ sigma: 1 })                // Define bordes
       .toFile(processedImagePath);
     //console.log(`🖼 Imagen preprocesada y guardada en: ${processedImagePath}`);
   } else {
@@ -33,8 +36,10 @@ export async function extractTransferData(imagePath, folderPath, worker) {
     psm: 3
   }); */
     await worker.setParameters({
-    tessedit_char_whitelist: '0123456789$,.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzáéíóúÁÉÍÓÚ- ',
-    preserve_interword_spaces: '1',
+      tessedit_char_whitelist: '0123456789$.,:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóúÁÉÍÓÚ- ',
+      preserve_interword_spaces: '1',
+      tessedit_pageseg_mode: '3',     // Bloque de texto
+      user_defined_dpi: '300'   
   });
   
   const { data } = await worker.recognize(processedPath);
