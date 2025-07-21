@@ -9,12 +9,9 @@ async function preprocessImage(imagePath) {
 
   if (!fs.existsSync(processedImagePath)) {
     await sharp(imagePath)
-      .grayscale()                      // Convierte a escala de grises
-      .normalize()                     // Mejora el contraste
-      .threshold(160)                  // Blanco y negro puro
-      .resize({ width: 1800 })
-      .sharpen({ sigma: 1 })         // Aumenta resolución si es muy chica
-      .toFile(outputPath);
+      .grayscale()
+      .threshold(180)
+      .toFile(processedImagePath);
     //console.log(`🖼 Imagen preprocesada y guardada en: ${processedImagePath}`);
   } else {
     console.log(`🖼 Imagen ya preprocesada existe: ${processedImagePath}`);
@@ -38,7 +35,6 @@ export async function extractTransferData(imagePath, folderPath, worker) {
     await worker.setParameters({
     tessedit_char_whitelist: '0123456789$,.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzáéíóúÁÉÍÓÚ- ',
     preserve_interword_spaces: '1',
-    user_defined_dpi: '300', 
   });
   
   const { data } = await worker.recognize(processedPath);
