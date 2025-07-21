@@ -263,7 +263,7 @@ async function processAllImages() {
   }
 
   if (uniqueData.length > 0) {
-    const csv = parse(uniqueData, { fields: Object.keys(uniqueData[0]) });
+    const csv = parse(uniqueData, { fields: Object.keys(uniqueData[0]), delimiter: ';', quote: '' });
     let comprobanteName = `todos_comprobantes_${(new Date()).toISOString().split('T')[0].split('-').reverse().join('-')}.csv`;
     fs.writeFileSync(`./temp/comprobantes_csv/${comprobanteName}`, csv, 'utf-8');
     console.log('📂 CSV guardado sin duplicados: comprobantes_csv/todos_comprobantes.csv');
