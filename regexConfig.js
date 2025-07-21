@@ -1,7 +1,7 @@
 const bankRegexMap = {
   './temp/comprobantes/Mp/': {
     fecha: /(?:Fecha de ejecución|Fecha de la transferencia|Día de operación|Miércoles,|Martes,|Jueves,|Viernes,|Sábado,|Domingo,|Lunes,)\s*([\d]{1,2}\sde\s\w+\sde\s\d{4})/i,
-    nombreEmisor: /De\s*\n?([A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑñ\s]+)/i,
+    nombreEmisor: /[.”"*]?\s*De\s*\n\s*([^\n]+)\n\s*CUITCUIL:/i,
     monto: /\$\s*([\d\.,]+)\s*Motivo:/i,
     cuil: /(?:CUIT|CUIL|DNI|Identificación fiscal)[^\d]*(\d{2}-?\d{7,8}-?\d)/i,
     codigoIdentificacion: /(?:Código de identificación)[^\w]*(\w+)/i,

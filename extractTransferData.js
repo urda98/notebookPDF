@@ -44,7 +44,7 @@ export async function extractTransferData(imagePath, folderPath, worker) {
   
   const { data } = await worker.recognize(processedPath);
   const text = data.text;
-  //console.log(`📜 Texto extraído:\n${text}\n`);
+  console.log(`📜 Texto extraído:\n${text}\n`);
 
  const regexPatterns = bankRegexMap[folderPath];
 

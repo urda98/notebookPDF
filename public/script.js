@@ -8,7 +8,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     spinnerWrapper.style.display = 'block';
 
     // Iniciar el proceso de subida
-    fetch('https://pdf-converter-lwbd.onrender.com/upload', {
+    fetch('http://localhost:3000/upload', {
         method: 'POST',
         body: form
     })
