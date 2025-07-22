@@ -36,7 +36,7 @@ export async function extractTransferData(imagePath, folderPath, worker) {
     psm: 3
   }); */
     await worker.setParameters({
-      tessedit_char_whitelist: '0123456789$.,:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóúÁÉÍÓÚ- ',
+      tessedit_char_whitelist: '0123456789$.,:/abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóúÁÉÍÓÚ- ',
       preserve_interword_spaces: '1',
       tessedit_pageseg_mode: '3',     // Bloque de texto
       user_defined_dpi: '300'   
