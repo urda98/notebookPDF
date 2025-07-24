@@ -103,7 +103,7 @@ async function classifyBankStatement(filePath, worker) {
 async function extractTextFromImage(imagePath, worker) {
   try {
     const { data: { text } } = await worker.recognize(imagePath);
-    console.log("🔍 Texto extraído del comprobante:", text);
+    //console.log("🔍 Texto extraído del comprobante:", text);
     return text;
   } catch (error) {
     console.error(`❌ Error en OCR para ${imagePath}:`, error);
